@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Angel ♡</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --rose: #bd7182;
+    --deep: #814653;
+    --paper: #fffdf9;
+    --ink: #55434a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 15% 15%, #fff8f5, transparent 32%),
+        radial-gradient(circle at 85% 80%, #f2d9dc, transparent 35%),
+        linear-gradient(135deg, #f9eeee, #f3dfe2 55%, #f8e9e6);
+    font-family: 'Cormorant Garamond', serif;
+}
+
+main {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px 18px 55px;
+    text-align: center;
+}
+
+.intro {
+    margin-bottom: 26px;
+    animation: fadeUp 1s ease both;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .28em;
+    font: 11px 'Playfair Display', serif;
+    color: #a56b78;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font: 52px 'Great Vibes', cursive;
+    color: var(--deep);
+    margin: 0;
+    font-weight: 400;
+}
+
+.subtitle {
+    font-size: 18px;
+    color: #9b747c;
+    margin-top: 5px;
+}
+
+/* ENVELOPE SCENE */
+
+.scene {
+    position: relative;
+    width: min(88vw, 430px);
+    height: 300px;
+    perspective: 1200px;
+    touch-action: pan-y;
+    user-select: none;
+    filter: drop-shadow(0 22px 24px rgba(111, 62, 76, .13));
+    transition: height .85s ease;
+}
+
+.envelope {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 230px;
+    border-radius: 5px 5px 12px 12px;
+    background: linear-gradient(145deg, #d99aa5, #c77f8e);
+    overflow: hidden;
+    transition: opacity .6s ease, transform .8s ease;
+}
+
+.envelope::before,
+.envelope::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    z-index: 4;
+    border-style: solid;
+}
+
+.envelope::before {
+    left: 0;
+    border-width: 0 0 230px 50%;
+    border-color: transparent transparent #d48d9b transparent;
+}
+
+.envelope::after {
+    right: 0;
+    border-width: 0 0 230px 50%;
+    border-color: transparent transparent #c77f8e transparent;
+}
+
+.front-fold {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    background: linear-gradient(145deg, transparent 49.8%, #d995a2 50%);
+    clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+    transition: opacity .5s ease, transform .8s ease;
+}
+
+.flap {
+    position: absolute;
+    z-index: 6;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 130px;
+    background: linear-gradient(160deg, #e5b0b8, #d58f9d);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top;
+    transition: transform .8s ease, opacity .5s ease;
+    backface-visibility: hidden;
+}
+
+.seal {
+    position: absolute;
+    z-index: 7;
+    left: 50%;
+    top: 112px;
+    transform: translateX(-50%);
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff4ef;
+    font-size: 24px;
+    background: radial-gradient(circle at 35% 30%, #c77d8c, #985365);
+    box-shadow: 0 3px 9px #9e5e6b66;
+    transition: opacity .4s ease, transform .6s ease;
+}
+
+/* LETTER */
+
+.letter {
+    position: absolute;
+    z-index: 2;
+    left: 5%;
+    bottom: 12px;
+    width: 90%;
+    height: 250px;
+    padding: 25px 22px;
+    border-radius: 4px;
+    background: var(--paper);
+    box-shadow: 0 4px 18px #75495720;
+    overflow: hidden;
+    transition:
+        transform 1s cubic-bezier(.18,.78,.22,1),
+        height .9s ease,
+        width .9s ease,
+        left .9s ease,
+        bottom .9s ease,
+        padding .9s ease;
+    cursor: grab;
+}
+
+.letter-heading {
+    font: 30px 'Great Vibes', cursive;
+    color: #a85f72;
+    margin: 0 0 7px;
+}
+
+.letter-teaser {
+    font-size: 16px;
+    color: #987a80;
+}
+
+.letter-content {
+    opacity: 0;
+    transition: opacity .7s ease .5s;
+    text-align: left;
+    font: 19px/1.62 'Cormorant Garamond', serif;
+    color: #59464c;
+    padding-bottom: 20px;
+}
+
+.letter-content p {
+    margin: 0 0 18px;
+}
+
+.signoff {
+    text-align: right;
+    color: #a45e70;
+    font: 31px 'Great Vibes', cursive;
+    margin-top: 18px;
+}
+
+/* ONE SWIPE = ENVELOPE DISAPPEARS */
+
+.scene.open {
+    height: min(78vh, 740px);
+    filter: none;
+}
+
+.scene.open .letter {
+    z-index: 8;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: min(78vh, 740px);
+    overflow-y: auto;
+    padding: 30px clamp(20px, 5vw, 42px);
+    border-radius: 7px;
+    box-shadow: 0 18px 55px rgba(111, 62, 76, .16);
+    cursor: auto;
+}
+
+.scene.open .letter-heading {
+    font-size: 37px;
+    margin-bottom: 18px;
+}
+
+.scene.open .letter-teaser {
+    display: none;
+}
+
+.scene.open .letter-content {
+    opacity: 1;
+    font-size: clamp(18px, 2.2vw, 21px);
+}
+
+/* Envelope fades and moves away */
+
+.scene.open .envelope,
+.scene.open .flap,
+.scene.open .front-fold,
+.scene.open .seal {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.scene.open .envelope {
+    transform: translateY(100px) scale(.92);
+}
+
+.scene.open .flap {
+    transform: translateY(-65px) rotateX(35deg);
+}
+
+.scene.open .front-fold {
+    transform: translateY(70px);
+}
+
+.scene.open .seal {
+    transform: translate(-50%, 35px) scale(.6);
+}
+
+.scene.open .letter::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scene.open .letter::-webkit-scrollbar-thumb {
+    background: #e5c2c8;
+    border-radius: 8px;
+}
+
+/* FLOATING HEARTS */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.heart {
+    position: absolute;
+    bottom: -30px;
+    color: #c77e8c;
+    opacity: 0;
+    animation: float 7s linear forwards;
+}
+
+.hint {
+    margin-top: 24px;
+    color: #9b6c78;
+    font: 14px 'Playfair Display', serif;
+    animation: pulse 2s infinite;
+}
+
+.footer {
+    margin-top: 18px;
+    color: #ad8790;
+    font-size: 14px;
+    letter-spacing: .08em;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: .65; }
+    50% { opacity: 1; }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    15% { opacity: .7; }
+    100% {
+        transform: translateY(-110vh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+    main {
+        padding-top: 28px;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    .scene {
+        height: 275px;
+    }
+
+    .envelope {
+        height: 210px;
+    }
+
+    .envelope::before,
+    .envelope::after {
+        border-bottom-width: 210px;
+    }
+
+    .flap {
+        height: 118px;
+    }
+
+    .seal {
+        top: 100px;
+    }
+
+    .letter {
+        height: 230px;
+    }
+
+    .scene.open {
+        height: 78svh;
+    }
+
+    .scene.open .letter {
+        height: 78svh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<main>
+
+    <header class="intro">
+        <div class="eyebrow">A little something from my heart</div>
+        <h1>For My Angel</h1>
+        <div class="subtitle">
+            Some things are better when they're said. ♡
+        </div>
+    </header>
+
+    <section class="scene" id="scene">
+
+        <article class="letter" id="letter">
+
+            <h2 class="letter-heading">Dear Angel</h2>
+
+            <div class="letter-teaser">
+                There's something I've been wanting to tell you…
+            </div>
+
+            <div class="letter-content">
+
+                <p>Dear Angel,</p>
+
+                <p>
+                Idk why am i even writing this paragraph or letter, its just that i want to express some feelings,
+                and honestly with time i have realized that if you feel something you should express it at that very time.
+                its just been 2 days since we are together, i want to express how do i feel right now, its like you know
+                i am just typing it and expressing whatever i feel atp.
+                </p>
+
+                <p>
+                Before you came in my life i already had a very recent experience with someone, which didn't go the way i wanted.
+                I was not happy before you, but i was satisfied with my life. But now when you are with me it just feels like alive.
+                I was satisfied, not satisfied to be honest i just accepted that no one is going to be there not for me but with me.
+                We as mature beings don't realize it at this age, more importantly we want someone to be with us not for us.
+                And somewhere i accepted ki i have to live it alone for like at least for sometime, but then you came and the
+                dynamics completely changed, now i know that someone is there with me, someone i can love, and honestly no matter
+                how loner and nerd i become, internally i am just a person who wants to love someone, who wants to give love.
+                Honestly for me kissing being physical being intimate these are just my ways to express my love, lust does not play
+                that much on me, you know these are just not the main thing for me, its not like ki i don't want it, but ugghhh how do
+                I say this, "the at most effort you can do for me is to talk" this is the least and the most I expect from my girlfriend.
+                </p>
+
+                <p>
+                Now I feel complete, one part of my was empty before you, thank you so much for completing it, i genuinely feel very happy
+                and alive now. My every past love life tragedy is now making sense, I used to think why am i depressed now i know why.
+                It was for me to get my self back in a better way and be with you and complete myself. Life is very unpredictable who would
+                say i am the same guy who didn't use to believe in being with someone. Just be there for me, and i promise i'll by there for you
+                always, i will do everything i can and i will listen to you when no one will, i will understand every corner every piece of you.
+                It is different to be in love, its beautiful, your existence completed me that was i wanted to express and i wrote a whole damn letter,
+                the last letter i wrote was in my English boards (scored 91 and farmed some aura in front of my faculty).
+                </p>
+
+                <div class="signoff">Yours, always ♡</div>
+
+            </div>
+        </article>
+
+        <div class="envelope"></div>
+        <div class="flap"></div>
+        <div class="front-fold"></div>
+        <div class="seal">♡</div>
+
+    </section>
+
+    <div class="hint" id="hint">
+        Swipe up once to reveal your letter ↑
+    </div>
+
+    <div class="footer">
+        made with love, just for you ♡
+    </div>
+
+</main>
+
+<script>
+
+const scene = document.getElementById('scene');
+const letter = document.getElementById('letter');
+const hint = document.getElementById('hint');
+
+let startY = 0;
+let startX = 0;
+let opened = false;
+
+function openLetter() {
+
+    if (opened) return;
+
+    opened = true;
+
+    scene.classList.add('open');
+
+    hint.textContent = 'A letter, from my heart ♡';
+
+    makeHearts();
+}
+
+function makeHearts() {
+
+    const holder = document.getElementById('hearts');
+
+    for (let i = 0; i < 16; i++) {
+
+        const heart = document.createElement('span');
+
+        heart.className = 'heart';
+
+        heart.textContent = Math.random() > 0.5 ? '♡' : '♥';
+
+        heart.style.left = Math.random() * 100 + '%';
+
+        heart.style.animationDelay = Math.random() * 2 + 's';
+
+        heart.style.fontSize = (14 + Math.random() * 18) + 'px';
+
+        holder.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 9500);
+    }
+}
+
+/* MOBILE SWIPE */
+
+letter.addEventListener('touchstart', e => {
+
+    if (opened) return;
+
+    startY = e.touches[0].clientY;
+    startX = e.touches[0].clientX;
+
+}, { passive: true });
+
+letter.addEventListener('touchend', e => {
+
+    if (opened) return;
+
+    const dy = e.changedTouches[0].clientY - startY;
+    const dx = e.changedTouches[0].clientX - startX;
+
+    if (dy < -35 && Math.abs(dy) > Math.abs(dx)) {
+        openLetter();
+    }
+
+}, { passive: true });
+
+/* DESKTOP SWIPE */
+
+letter.addEventListener('mousedown', e => {
+
+    if (opened) return;
+
+    startY = e.clientY;
+
+});
+
+window.addEventListener('mouseup', e => {
+
+    if (opened) return;
+
+    if (startY - e.clientY > 35) {
+        openLetter();
+    }
+
+});
+
+/* CLICK TO OPEN AS AN ALTERNATIVE */
+
+letter.addEventListener('click', () => {
+
+    if (!opened) {
+        openLetter();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
